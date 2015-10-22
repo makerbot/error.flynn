@@ -1,3 +1,5 @@
+https://david-dm.org/makerbot/error.flynn.svg
+
 ## Install
 ```sh
 npm install --save error.flynn
@@ -31,3 +33,11 @@ app.use((err, req, res, next) {
 ```sh
 npm test
 ```
+
+---
+
+## Example Output
+
+![Slack message](https://raw.githubusercontent.com/makerbot/error.flynn/gh-pages/example.png)
+
+
