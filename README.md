@@ -1,4 +1,5 @@
-https://david-dm.org/makerbot/error.flynn.svg
+![Build status](https://travis-ci.org/makerbot/error.flynn.svg)
+![Dependencies](https://david-dm.org/makerbot/error.flynn.svg)
 
 ## Install
 ```sh
