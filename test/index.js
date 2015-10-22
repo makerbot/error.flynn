@@ -20,7 +20,7 @@ describe('It isn\'t what they say about you, it\'s what they test', () => {
   let app;
 
   before(() => {
-    app = server('https://hooks.slack.com/services/test/test/test', {
+    app = server('https://hooks.slack.com/services/in/with/flynn', {
       author_name: null
     });
   });
@@ -144,7 +144,6 @@ function server(url, opt) {
     next(new Error('Oh noooooooo!'));
   });
 
-  url = 'https://hooks.slack.com/services/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';
   app.use(flynn(url, opt));
 
   app.use((err, req, res, next) => {
