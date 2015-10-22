@@ -1,14 +1,14 @@
 ![Build status](https://travis-ci.org/makerbot/error.flynn.svg)
 ![Dependencies](https://david-dm.org/makerbot/error.flynn.svg)
 
-## Install
+### Install
 ```sh
 npm install --save error.flynn
 ```
 
 ---
 
-## Use
+### Use
 First, setup an Incoming Webhook in Slack `https://<your team>.slack.com/services/`
 
 Then:
@@ -37,14 +37,14 @@ app.use(flynn('https://hooks.slack.com/services/TOKEN'), (err, req, res, next) {
 
 ---
 
-## Tests
+### Tests
 ```sh
 npm test
 ```
 
 ---
 
-## Example Output
+### Example Output
 
 ![Slack message](https://raw.githubusercontent.com/makerbot/error.flynn/gh-pages/example.png)
 
