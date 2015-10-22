@@ -14,10 +14,11 @@ First, setup an Incoming Webhook in Slack `https://<your team>.slack.com/service
 Then:
 
 ```js
-const express = require('express'),
-  flynn = require('error.flynn');
+const express = require('express')
+  , flynn = require('error.flynn')
+  , app = express()
+  ;
 
-const app = express();
 app.get('/', (req, res, next) => {
   next(new Error('Send me to Slack!'));
 });
@@ -33,7 +34,6 @@ app.use(flynn('https://hooks.slack.com/services/TOKEN'), (err, req, res, next) {
   res.sendStatus(500);
 });
 ```
-
 
 ---
 
