@@ -4,7 +4,7 @@
   "description": "Express middleware for reporting errors to Slack",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "NODE_ENV=test mocha"
   },
   "repository": {
     "type": "git",
