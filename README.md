@@ -27,6 +27,13 @@ app.use((err, req, res, next) {
   res.sendStatus(500);
 });
 ```
+The last part (below the comment) could also be done more concisely:
+```js
+app.use(flynn('https://hooks.slack.com/services/TOKEN'), (err, req, res, next) {
+  res.sendStatus(500);
+});
+```
+
 
 ---
 
