@@ -1,3 +1,5 @@
+https://david-dm.org/makerbot/error.flynn.svg
+
 ## Install
 ```sh
 npm install --save error.flynn
