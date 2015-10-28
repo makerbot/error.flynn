@@ -1,6 +1,6 @@
 'use strict';
 
-const request = require('supertest')
+const supertest = require('supertest')
   , express = require('express')
   , bodyParser = require('body-parser')
   , chai = require('chai')
@@ -10,6 +10,7 @@ const request = require('supertest')
   , sinonChai = require('sinon-chai')
   , Slack = require('slack-node')
   , flynn = require('../')
+  , slackURL = 'https://hooks.slack.com/services/in/with/flynn'
   ;
 
 chai.use(sinonChai);
@@ -17,20 +18,22 @@ chai.use(sinonChai);
 // http://www.brainyquote.com/quotes/quotes/e/errolflynn125391.html
 describe('It isn\'t what they say about you, it\'s what they test', () => {
   const spy = sinon.spy(Slack.prototype, 'webhook');
-  let app;
+  let request;
 
   before(() => {
-    app = server('https://hooks.slack.com/services/in/with/flynn', {
+    const app = server(slackURL, {
       author_name: null
     });
+    request = supertest(app);
   });
 
   beforeEach(() => {
     spy.reset();
+    process.env.ERROR_FLYNN_URL = '';
   });
 
   it('Flynn sends errors to Slack', done => {
-    request(app)
+    request
       .get('/500')
       .expect(500)
       .end((err, res) => {
@@ -42,7 +45,7 @@ describe('It isn\'t what they say about you, it\'s what they test', () => {
   });
 
   it('Flynn sends call stack to Slack', done => {
-    request(app)
+    request
       .get('/500')
       .expect(500)
       .end((err, res) => {
@@ -55,7 +58,7 @@ describe('It isn\'t what they say about you, it\'s what they test', () => {
   });
 
   it('Flynn sends warnings to Slack', done => {
-    request(app)
+    request
       .get('/404')
       .expect(404)
       .end((err, res) => {
@@ -67,7 +70,7 @@ describe('It isn\'t what they say about you, it\'s what they test', () => {
   });
 
   it('Flynn sends request body to Slack', done => {
-    request(app)
+    request
       .post('/500')
       .send({
         test: 'test',
@@ -87,7 +90,7 @@ describe('It isn\'t what they say about you, it\'s what they test', () => {
   });
 
   it('Flynn sends query string to Slack', done => {
-    request(app)
+    request
       .get('/500?girlfriend=katharine.hepburn')
       .expect(500)
       .end((err, res) => {
@@ -111,7 +114,7 @@ describe('It isn\'t what they say about you, it\'s what they test', () => {
   });
 
   it('Lacking an error, Flynn shuts up', done => {
-    request(app)
+    request
       .get('/ok')
       .expect(200)
       .end(function(err, res){
@@ -119,6 +122,11 @@ describe('It isn\'t what they say about you, it\'s what they test', () => {
         spy.should.have.not.been.called;
         done();
       });
+  });
+
+  it('Works with environmental variable ERROR_FLYNN_URL', () => {
+    process.env.ERROR_FLYNN_URL = slackURL;
+    expect(flynn.bind(null)).to.not.throw(TypeError);
   });
 
   after(() => {
