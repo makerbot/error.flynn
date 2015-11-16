@@ -1,4 +1,4 @@
-[![Build status](https://travis-ci.org/makerbot/error.flynn.svg)](https://travis-ci.org/makerbot/error.flynn)
+[![Build status](https://travis-ci.org/makerbot/error.flynn.svg?branch=master)](https://travis-ci.org/makerbot/error.flynn)
 [![Dependencies](https://david-dm.org/makerbot/error.flynn.svg)](https://david-dm.org/makerbot/error.flynn)
 
 ### Install
