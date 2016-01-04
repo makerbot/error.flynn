@@ -19,6 +19,10 @@ module.exports = function flynn(url, opt) {
   slack.setWebhook(url);
 
   return function middleware(err, req, res, next) {
+    if (typeof opt.skip === 'function' && opt.skip(err, req, res)) {
+      return next(err);
+    }
+
     err.status = err.status || 500;
     let attachment = Object.assign({}, {
       author_name: req.headers.host,

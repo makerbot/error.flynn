@@ -22,7 +22,8 @@ describe('It isn\'t what they say about you, it\'s what they test', () => {
 
   before(() => {
     const app = server(slackURL, {
-      author_name: null
+      author_name: null,
+      skip: (err, req, res) => err.status === 403
     });
     request = supertest(app);
   });
@@ -53,6 +54,17 @@ describe('It isn\'t what they say about you, it\'s what they test', () => {
         spy.should.have.been.calledOnce;
         spy.args[0][0].attachments[0].should.have.property('text')
           .that.includes('Call Stack');
+        done();
+      });
+  });
+
+  it('Flynn "skip" option works', done => {
+    request
+      .get('/403')
+      .expect(403)
+      .end((err, res) => {
+        if (err) throw err;
+        spy.should.have.not.been.called;
         done();
       });
   });
@@ -140,6 +152,12 @@ function server(url, opt) {
 
   app.get('/ok', (req, res) => {
     res.sendStatus(200);
+  });
+
+  app.get('/403', (req, res, next) => {
+    let err = new Error('Not Authorized!');
+    err.status = 403;
+    next(err);
   });
 
   app.get('/404', (req, res, next) => {
