@@ -1,6 +1,6 @@
 {
   "name": "error.flynn",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Express middleware for reporting errors to Slack",
   "main": "index.js",
   "scripts": {
