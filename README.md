@@ -24,13 +24,13 @@ app.get('/', (req, res, next) => {
 });
 // Either set process.env.ERROR_FLYNN_URL or use the url as the first param for flynn)
 app.use(flynn('https://hooks.slack.com/services/TOKEN'));
-app.use((err, req, res, next) {
+app.use((err, req, res, next) => {
   res.sendStatus(500);
 });
 ```
 The last part (below the comment) could also be done more concisely:
 ```js
-app.use(flynn('https://hooks.slack.com/services/TOKEN'), (err, req, res, next) {
+app.use(flynn('https://hooks.slack.com/services/TOKEN'), (err, req, res, next) => {
   res.sendStatus(500);
 });
 ```
